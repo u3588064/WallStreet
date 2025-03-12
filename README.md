@@ -216,4 +216,6 @@ MIT
 
 ## 联系方式
 
-如有问题或建议，请通过GitHub Issues或邮件联系项目维护者。 
+如果您有任何问题或需要进一步的信息，请联系项目维护者：[u3588064@connect.hku.hk](mailto:u3588064@connect.hku.hk)。
+
+![qrcode_for_gh_643efb7db5bc_344(1)](https://github.com/u3588064/LLMemory/assets/53069671/8bb26c0f-4cab-438b-9f8c-16b1c26b3587)
