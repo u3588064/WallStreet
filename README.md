@@ -1,6 +1,16 @@
 # 金融市场模拟系统
 
-这个项目使用AutoGen框架模拟了一个完整的金融市场生态系统，类似于斯坦福小镇项目的交互方式。该系统模拟了各类金融主体之间的交互和市场运作机制。
+这个项目使用AutoGen框架模拟了一个完整的金融市场生态系统，类似于斯坦福小镇项目的交互方式。该系统模拟了各类金融主体之间的交互和市场运作机制，为理解复杂金融系统提供了可视化和交互式的环境。
+
+## 项目概述
+
+本项目旨在创建一个模拟真实世界金融系统的环境，包括不同类型的金融主体、市场机制、资产价格动态和监管活动。通过这个模拟系统，用户可以：
+
+- 观察不同金融主体之间的交互和影响
+- 了解宏观经济事件如何影响市场
+- 分析监管政策变化对金融系统的影响
+- 与不同类型的金融主体进行对话交流
+- 可视化复杂的金融网络和市场动态
 
 ## 项目结构
 
@@ -14,7 +24,13 @@ financial_market_simulation/
 │   ├── direct_participants/     # 直接参与者
 │   └── international_organizations/ # 国际机构
 ├── config/                      # 配置文件
+│   ├── __init__.py              # 配置包初始化文件
+│   └── simulation_config.py     # 模拟参数配置
 ├── utils/                       # 工具函数
+│   ├── __init__.py              # 工具包初始化文件
+│   ├── base_agent.py            # 金融主体基类
+│   └── market_utils.py          # 市场工具函数
+├── __init__.py                  # 项目初始化文件
 ├── main.py                      # 主程序入口
 ├── market_simulation.py         # 市场模拟核心逻辑
 ├── visualization.py             # 可视化工具
@@ -64,28 +80,140 @@ financial_market_simulation/
 - 世界银行
 - 国际清算银行（BIS）
 
+## 核心功能
+
+### 1. 市场模拟
+
+系统能够模拟金融市场的运作，包括：
+
+- 资产价格动态：使用几何布朗运动生成资产价格，并考虑市场情绪、波动率等因素
+- 市场事件：随机生成经济新闻、政治事件、自然灾害等，并模拟它们对市场的影响
+- 监管活动：模拟压力测试、监管报告和政策调整等监管活动
+- 金融主体交互：模拟金融主体之间的消息交互和资金转移
+
+### 2. 代理对话
+
+系统提供与不同类型金融主体的对话功能，包括：
+
+- 金融市场专家：提供关于金融市场的专业知识和见解
+- 中央银行：解释货币政策和金融稳定措施
+- 商业银行：讨论银行业务和风险管理
+- 投资者：分享投资策略和市场观点
+- 监管机构：解释监管规则和市场秩序
+- 群聊模式：多个金融主体共同参与的讨论
+
+### 3. 可视化分析
+
+系统提供丰富的可视化工具，帮助理解复杂的金融数据：
+
+- 资产价格走势图
+- 市场状态参数图
+- 交易金额时间序列和分布图
+- 事件影响和分布图
+- 金融主体网络关系图（交互式和静态）
+- 金融主体余额分布图
+
 ## 安装与运行
 
-1. 克隆仓库
-```bash
-git clone https://github.com/yourusername/financial_market_simulation.git
-cd financial_market_simulation
-```
+### 安装依赖
 
-2. 安装依赖
 ```bash
 pip install -r requirements.txt
 ```
 
-3. 运行模拟
+主要依赖包括：
+- autogen==0.2.0：提供多代理交互框架
+- numpy>=1.24.0 和 pandas>=2.0.0：数据处理
+- matplotlib>=3.7.0：基础数据可视化
+- networkx>=3.0 和 pyvis>=0.3.2：网络可视化
+- pydantic>=2.0.0：数据验证
+- tqdm>=4.65.0：进度显示
+
+### 运行模拟
+
+可以通过以下命令运行市场模拟：
+
 ```bash
-python main.py
+python main.py simulate --visualize
 ```
 
-## 使用方法
+参数说明：
+- `--output-dir`：指定输出目录，默认为"results"
+- `--log-level`：设置日志级别，可选值为DEBUG、INFO、WARNING、ERROR、CRITICAL，默认为INFO
+- `--log-file`：指定日志文件路径
+- `--visualize`：启用可视化功能
 
-详细的使用说明和示例将在项目完成后提供。
+### 运行代理对话
+
+可以通过以下命令与金融主体进行对话：
+
+```bash
+python main.py agent --agent-type market_expert
+```
+
+参数说明：
+- `--agent-type`：选择代理类型，可选值为market_expert、central_bank、commercial_bank、investor、regulator、group_chat，默认为market_expert
+- `--initial-message`：设置初始消息
+- `--log-level`：设置日志级别
+- `--log-file`：指定日志文件路径
+- `--output-dir`：指定输出目录，默认为"agent_results"
+
+## 自定义配置
+
+可以通过修改`config/simulation_config.py`文件来自定义模拟参数，包括：
+
+- LLM配置：修改语言模型的参数
+- 模拟参数：调整模拟天数、时间步长等
+- 市场参数：设置利率、通胀率、波动率等
+- 资产类别：定义不同资产类别的特性
+- 监管参数：设置资本要求、杠杆限制等
+- 事件参数：调整各类事件的发生概率
+- 金融主体配置：自定义各类金融主体的属性和初始状态
+
+## 开发指南
+
+### 添加新的金融主体
+
+1. 在`agents/`目录下相应的子目录中创建新的Python文件
+2. 继承`utils/base_agent.py`中的`FinancialAgent`类
+3. 在`config/simulation_config.py`中的`FINANCIAL_ENTITIES`字典中添加新主体的配置
+
+### 添加新的市场机制
+
+1. 在`market_simulation.py`中的`MarketSimulation`类中添加新的方法
+2. 在`run_simulation`方法中的模拟循环中调用新方法
+
+### 扩展可视化功能
+
+1. 在`visualization.py`中的`MarketVisualizer`类中添加新的可视化方法
+2. 在`visualize_all`方法中调用新方法
+
+## 示例场景
+
+### 市场冲击模拟
+
+模拟突发事件对市场的影响，观察不同金融主体的反应和系统性风险的传播。
+
+### 货币政策调整
+
+模拟中央银行调整利率对金融市场的影响，分析不同资产类别的价格变动和金融机构的行为变化。
+
+### 监管政策变更
+
+模拟监管机构调整资本要求或杠杆限制，观察金融机构如何调整资产配置和风险敞口。
 
 ## 许可证
 
-MIT 
+MIT
+
+## 贡献指南
+
+欢迎通过以下方式为项目做出贡献：
+1. 报告Bug或提出功能建议
+2. 提交代码改进
+3. 完善文档和示例
+4. 添加新的金融主体或市场机制
+
+## 联系方式
+
+如有问题或建议，请通过GitHub Issues或邮件联系项目维护者。 
