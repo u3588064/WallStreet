@@ -1,0 +1,27 @@
+"""
+金融市场模拟配置包
+"""
+
+from .simulation_config import (
+    LLM_CONFIG,
+    SIMULATION_PARAMS,
+    MARKET_PARAMS,
+    ASSET_CLASSES,
+    REGULATORY_PARAMS,
+    EVENT_PARAMS,
+    AGENT_PARAMS,
+    VISUALIZATION_PARAMS,
+    FINANCIAL_ENTITIES,
+)
+
+__all__ = [
+    'LLM_CONFIG',
+    'SIMULATION_PARAMS',
+    'MARKET_PARAMS',
+    'ASSET_CLASSES',
+    'REGULATORY_PARAMS',
+    'EVENT_PARAMS',
+    'AGENT_PARAMS',
+    'VISUALIZATION_PARAMS',
+    'FINANCIAL_ENTITIES',
+] 
